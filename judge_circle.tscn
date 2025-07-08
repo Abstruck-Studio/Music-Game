@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bj1haa7t77vs8"]
+
+[ext_resource type="Script" uid="uid://8370lfpqe1mq" path="res://Circle.cs" id="1_vmgc1"]
+
+[node name="JudgeCircle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Circle" type="Node2D" parent="."]
+script = ExtResource("1_vmgc1")

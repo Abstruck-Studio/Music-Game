@@ -1,0 +1,38 @@
+[gd_scene load_steps=10 format=3 uid="uid://chbf7sjrrjms8"]
+
+[ext_resource type="PackedScene" uid="uid://bj1haa7t77vs8" path="res://judge_circle.tscn" id="1_a202f"]
+[ext_resource type="Script" uid="uid://5ftiayg6ktk0" path="res://Camera3d.cs" id="1_noarx"]
+[ext_resource type="Script" uid="uid://cfd3m0pfmpprx" path="res://InfiniteSpawner.cs" id="3_r3fl7"]
+[ext_resource type="PackedScene" uid="uid://c22uycp4ol3u2" path="res://cube.tscn" id="4_jka67"]
+
+[sub_resource type="Gradient" id="Gradient_4xowi"]
+colors = PackedColorArray(0.49976, 0.914322, 0.852729, 1, 1, 0.692238, 0.531155, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a202f"]
+gradient = SubResource("Gradient_4xowi")
+fill_to = Vector2(0, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_noarx"]
+panorama = SubResource("GradientTexture2D_a202f")
+
+[sub_resource type="Sky" id="Sky_a0tk4"]
+sky_material = SubResource("PanoramaSkyMaterial_noarx")
+
+[sub_resource type="Environment" id="Environment_r3fl7"]
+background_mode = 2
+sky = SubResource("Sky_a0tk4")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_r3fl7")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+script = ExtResource("1_noarx")
+
+[node name="JudgeCircle" parent="." instance=ExtResource("1_a202f")]
+
+[node name="InfiniteSpawner" type="Node3D" parent="."]
+script = ExtResource("3_r3fl7")
+ModelScene = ExtResource("4_jka67")
