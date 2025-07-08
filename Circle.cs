@@ -17,6 +17,15 @@ public partial class Circle : Node2D
 			{
 				if (IsPointOnArc(((InputEventMouseButton)@event).Position))
 				{
+					var camera = GetViewport().GetCamera3D();
+					var nodes = GetNode<InfiniteSpawner>("../../InfiniteSpawner").ActiveObject;
+					foreach (var node in nodes)
+					{
+						if (IsPointOnArc(camera.UnprojectPosition(node.GlobalPosition), 50.0f))
+						{
+							GD.Print("Success!");
+						}
+					}
 					GD.Print("Clicked!");
 				}
 			}

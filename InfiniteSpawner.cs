@@ -14,9 +14,13 @@ public partial class InfiniteSpawner : Node3D
     private Queue<Node3D> _objectPool = new Queue<Node3D>();
     private float _spawnTimer = 0.0f;
     
+    private List<Node3D> _activeObject = new List<Node3D>();
+    
     // 固定生成位置
     private readonly Vector3 _spawnPosition = new Vector3(-2.5f, 0f, -25f);
 
+    public IReadOnlyList<Node3D> ActiveObject => _activeObject;
+    
     public override void _Ready()
     {
         // 创建对象池
@@ -57,6 +61,7 @@ public partial class InfiniteSpawner : Node3D
         
         // 重置移动状态
         newObject.SetMeta("IsMoving", true);
+        _activeObject.Add(newObject);
     }
 
     private void UpdateObjects(float delta)
@@ -84,6 +89,7 @@ public partial class InfiniteSpawner : Node3D
     {
         obj.Visible = false;
         _objectPool.Enqueue(obj);
+        _activeObject.Remove(obj);
     }
     
     // 控制所有物体的移动状态
