@@ -4,11 +4,18 @@ using System;
 public partial class Circle : Node2D
 {
 	Vector2 Center = new Vector2(DisplayServer.WindowGetSize().X / 2, DisplayServer.WindowGetSize().Y / 2);
+	AudioStreamMP3 clickedAudio = new AudioStreamMP3();
 	float Radius = 300.0f;
 	float StartAngle = float.Pi * 7 / 8;
 	float EndAngle = float.Pi * 9 / 8;
 	float LineWidth = 11.0f;
-	
+
+	public override void _Ready()
+	{
+		clickedAudio.Data = FileAccess.GetFileAsBytes("res://music/clicked.mp3");
+    }
+
+
 	public override void _Input(InputEvent @event)
 	{
 		if (typeof(InputEventMouseButton) == @event.GetType())
@@ -24,6 +31,10 @@ public partial class Circle : Node2D
 						if (IsPointOnArc(camera.UnprojectPosition(node.GlobalPosition), 50.0f))
 						{
 							GD.Print("Success!");
+							var player = new AudioStreamPlayer();
+							player.Stream = clickedAudio;
+							AddChild(player);
+							player.Play();
 						}
 					}
 					GD.Print("Clicked!");
